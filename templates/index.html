@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: maroon; /* Maroon background */
+            background-color: #a52a2a; /* Light maroon background */
             color: white; /* White text for contrast */
         }
         .container {
@@ -27,7 +27,7 @@
             display: block;
             margin-bottom: 5px;
         }
-        input[type="text"], select {
+        input[type="text"], select, textarea {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
@@ -42,7 +42,7 @@
         button:hover {
             background-color: #600000; /* Even darker maroon on hover */
         }
-        .result {
+        .result, .feedback, .suggestions {
             margin-top: 20px;
             padding: 10px;
             background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
@@ -56,11 +56,18 @@
             max-width: 100%;
             height: auto;
         }
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent black background */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+        <!-- Logo Image -->
+        <img src="logo.png" alt="Logo" class="logo">
         <h1>Sequence Alignment Tool</h1>
         <form method="POST">
             <div class="form-group">
@@ -94,6 +101,54 @@
             <img src="{{ image_url }}" alt="Alignment Visualization">
         </div>
         {% endif %}
+
+        <!-- DNA/RNA Image -->
+        <div class="visualization">
+            <h2>DNA/RNA Structure</h2>
+            <img src="DNARNA.PNG" alt="DNA/RNA Structure">
+        </div>
+
+        <!-- Protein Image -->
+        <div class="visualization">
+            <h2>Protein Structure</h2>
+            <img src="shp.png" alt="Protein Structure">
+        </div>
+
+        <div class="feedback">
+            <h2>Feedback</h2>
+            <form method="POST" action="/feedback">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </div>
+
+        <div class="suggestions">
+            <h2>Suggestions</h2>
+            <form method="POST" action="/suggestions">
+                <div class="form-group">
+                    <label for="suggestion">Your Suggestion:</label>
+                    <textarea id="suggestion" name="suggestion" rows="4" required></textarea>
+                </div>
+                <button type="submit">Submit Suggestion</button>
+            </form>
+        </div>
     </div>
+
+    <footer>
+        <p>Developed by <strong>Syed Mubassir Shah supervised by Prof:Dr Ayaz Ahmad</strong></p>
+        <p>Department of <strong>Biotechnology</strong>, <strong>Abdul Wali Khan University Mardan</strong></p>
+        <p>Contact: <a href="mailto:syedmubassir@awkum.edu.pk">mubassirkhnn00@gmail.com</a></p>
+    </footer>
 </body>
 </html>
