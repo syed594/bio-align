@@ -4,7 +4,7 @@ import signal
 import sys
 
 # Import necessary libraries
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from Bio.Align import PairwiseAligner
 import matplotlib.pyplot as plt
 import os
@@ -55,6 +55,32 @@ def home():
     
     # Render the home page with the result and image
     return render_template("index.html", result=result, image_url=image_url)
+
+# Route to handle feedback submissions
+@app.route('/feedback', methods=['POST'])
+def feedback():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    message = request.form.get('message')
+    
+    # Save feedback to a file (you can replace this with a database later)
+    with open('feedback.txt', 'a') as f:
+        f.write(f"Name: {name}\nEmail: {email}\nMessage: {message}\n\n")
+    
+    # Redirect to the home page with a success message
+    return redirect(url_for('home'))
+
+# Route to handle suggestions
+@app.route('/suggestions', methods=['POST'])
+def suggestions():
+    suggestion = request.form.get('suggestion')
+    
+    # Save suggestion to a file (you can replace this with a database later)
+    with open('suggestions.txt', 'a') as f:
+        f.write(f"Suggestion: {suggestion}\n\n")
+    
+    # Redirect to the home page with a success message
+    return redirect(url_for('home'))
 
 # Function to open the browser automatically
 def open_browser():
